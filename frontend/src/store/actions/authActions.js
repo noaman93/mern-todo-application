@@ -11,18 +11,32 @@ export const signUp = (user) => {
   return (dispatch, getState) => {
     axios
       .post(`${url}/signup`, user)
-      .then((token) => {
-        localStorage.setItem("token", taken.data);
+      .then((response) => {
+        localStorage.setItem("token", response.data);
         dispatch({
           type: "SIGN_UP",
-          token: token.data,
+          token: response.data,
         });
       })
       .catch((error) => {
-        console.log(error.response);
+        console.log(error);
         toast.error(error.response?.data, {
           position: toast.POSITION.BOTTOM_RIGHT,
         });
       });
+  };
+};
+
+export const loadUser = () => {
+  return (dispatch, getState) => {
+    const token = getState().auth.token;
+    if (token) {
+      dispatch({
+        type: "USER_LOADER",
+        token,
+      });
+    } else {
+      return null;
+    }
   };
 };
