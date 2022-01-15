@@ -10,7 +10,7 @@ const SignUp = () => {
           <Form.Control type="text" placeholder="Enter your name" />
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Group className="mb-3" controlId="formBasicAddress">
           <Form.Label>Email address</Form.Label>
           <Form.Control type="email" placeholder="Enter email" />
         </Form.Group>

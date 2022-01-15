@@ -3,3 +3,11 @@
   font-size: 1.9em;
   padding: 5px;
 }
+
+.green{
+  color:green;
+}
+
+.yesComplete{
+  text-decoration: line-through;
+}

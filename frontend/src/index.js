@@ -13,6 +13,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 //Custom CSS
 import "./styles/signin.css";
+import "./styles/listTodo.css";
 
 //create store
 const store = createStore(rootReducer, applyMiddleware(thunk));
