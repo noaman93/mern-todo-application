@@ -27,6 +27,28 @@ export const signUp = (user) => {
   };
 };
 
+//action creater for SIGNINGIN the User
+export const signIn = (creds) => {
+  //return a function with the help of react dunk
+  return (dispatch, getState) => {
+    axios
+      .post(`${url}/signin`, creds)
+      .then((response) => {
+        localStorage.setItem("token", response.data);
+        dispatch({
+          type: "SIGN_IN",
+          token: response.data,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error(error.response?.data, {
+          position: toast.POSITION.BOTTOM_RIGHT,
+        });
+      });
+  };
+};
+
 export const loadUser = () => {
   return (dispatch, getState) => {
     const token = getState().auth.token;
@@ -38,5 +60,13 @@ export const loadUser = () => {
     } else {
       return null;
     }
+  };
+};
+
+export const signOut = () => {
+  return (dispatch) => {
+    dispatch({
+      type: "SIGN_OUT",
+    });
   };
 };

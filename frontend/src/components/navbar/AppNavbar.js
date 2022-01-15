@@ -1,5 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Navbar,
   Nav,
@@ -10,7 +11,17 @@ import {
   Button,
 } from "react-bootstrap";
 
+import { signOut } from "../../store/actions/authActions";
+
 const AppNavbar = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleSignOut = () => {
+    dispatch(signOut());
+    navigate("/path");
+  };
+
   return (
     <Navbar bg="primary" variant="dark" expand="lg">
       <Container>
@@ -26,7 +37,12 @@ const AppNavbar = () => {
             <Nav.Link as={Link} to="/signin" style={{ color: "#FFFFFF" }}>
               SIGNIN
             </Nav.Link>
-            <Nav.Link as={Link} to="#" style={{ color: "#FFFFFF" }}>
+            <Nav.Link
+              as={Link}
+              to="#"
+              style={{ color: "#FFFFFF" }}
+              onClick={handleSignOut}
+            >
               SIGNOUT
             </Nav.Link>
             <Nav.Link as={Link} to="/signup" style={{ color: "#FFFFFF" }}>
