@@ -19,7 +19,7 @@ const AppNavbar = () => {
 
   const state = useSelector((state) => state);
   const auth = useSelector((state) => state.auth);
-  console.log(state);
+  // console.log(state);
 
   const handleSignOut = () => {
     dispatch(signOut());
