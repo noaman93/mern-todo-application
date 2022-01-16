@@ -77,7 +77,7 @@ const ListTodos = ({ todo, setTodo }) => {
                     <h4 className={todo.isComplete ? "yesComplete" : ""}>
                       {todo.name}
                     </h4>
-                    <p style={{ marginBottom: "0px" }}>Author Nomi</p>
+                    <p style={{ marginBottom: "0px" }}>{todo.author}</p>
                     <p style={{ marginTop: "0px" }}>
                       Added : {moment(todo.date).fromNow()}
                     </p>

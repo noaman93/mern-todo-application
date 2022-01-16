@@ -1,5 +1,5 @@
 import axios from "axios";
-import { url } from "../../api"; //no need name because we have index.js file there
+import { url, setHeaders } from "../../api"; //no need name because we have index.js file there
 
 import { toast } from "react-toastify";
 
@@ -10,7 +10,7 @@ export const getTodos = (todo) => {
   //return a function with the help of react dunk
   return (dispatch, getState) => {
     axios
-      .get(`${url}/todos`)
+      .get(`${url}/todos`, setHeaders())
       .then((todos) => {
         dispatch({
           type: "GET_TODOS",
@@ -27,8 +27,10 @@ export const getTodos = (todo) => {
 export const addTodo = (todo) => {
   //return a function with the help of react dunk
   return (dispatch, getState) => {
+    const author = getState().auth.name;
+    const uid = getState().auth._id;
     axios
-      .post(`${url}/todos`, todo)
+      .post(`${url}/todos`, { ...todo, author, uid }, setHeaders())
       .then((todo) => {
         dispatch({
           type: "ADD_TODO",
@@ -36,7 +38,6 @@ export const addTodo = (todo) => {
         });
       })
       .catch((error) => {
-        console.log(error.response);
         toast.error(error.response?.data, {
           position: toast.POSITION.BOTTOM_RIGHT,
         });
@@ -49,7 +50,7 @@ export const updateTodo = (updatedTodo, id) => {
   //return a function with the help of react dunk
   return (dispatch, getState) => {
     axios
-      .put(`${url}/todos/${id}`, updatedTodo)
+      .put(`${url}/todos/${id}`, updatedTodo, setHeaders())
       .then((updatedTodo) => {
         dispatch({
           type: "UPDATE_TODO",
@@ -70,7 +71,7 @@ export const checkTodo = (id) => {
   //return a function with the help of react dunk
   return (dispatch, getState) => {
     axios
-      .patch(`${url}/todos/${id}`, {})
+      .patch(`${url}/todos/${id}`, {}, setHeaders())
       .then((todo) => {
         dispatch({
           type: "CHECK_TODO",
@@ -91,7 +92,7 @@ export const deleteTodo = (id) => {
   //return a function with the help of react dunk
   return (dispatch, getState) => {
     axios
-      .delete(`${url}/todos/${id}`)
+      .delete(`${url}/todos/${id}`, setHeaders())
       .then(() => {
         dispatch({
           type: "DELETE_TODO",

@@ -17,9 +17,13 @@ const AppNavbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const state = useSelector((state) => state);
+  const auth = useSelector((state) => state.auth);
+  console.log(state);
+
   const handleSignOut = () => {
     dispatch(signOut());
-    navigate("/path");
+    navigate("/signin");
   };
 
   return (
@@ -31,23 +35,29 @@ const AppNavbar = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
-            {/* <Nav.Link as={Link} to="/" style={{ color: "#FFFFFF" }}>
-              Todo
-            </Nav.Link> */}
-            <Nav.Link as={Link} to="/signin" style={{ color: "#FFFFFF" }}>
-              SIGNIN
-            </Nav.Link>
-            <Nav.Link
-              as={Link}
-              to="#"
-              style={{ color: "#FFFFFF" }}
-              onClick={handleSignOut}
-            >
-              SIGNOUT
-            </Nav.Link>
-            <Nav.Link as={Link} to="/signup" style={{ color: "#FFFFFF" }}>
-              SIGNUP
-            </Nav.Link>
+            {auth._id && (
+              <Nav.Link style={{ color: "#FFFFFF" }}>
+                {auth.name}'s Dashboard
+              </Nav.Link>
+            )}
+          </Nav>
+          <Nav className="ms-auto">
+            {auth._id ? (
+              <Nav.Link style={{ color: "#FFFFFF" }} onClick={handleSignOut}>
+                SIGNOUT
+              </Nav.Link>
+            ) : (
+              <>
+                <Nav.Link as={Link} to="/signin" style={{ color: "#FFFFFF" }}>
+                  SIGNIN
+                </Nav.Link>
+
+                <Nav.Link as={Link} to="/signup" style={{ color: "#FFFFFF" }}>
+                  SIGNUP
+                </Nav.Link>
+              </>
+            )}
+
             {/* <NavDropdown title="Dropdown" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">
